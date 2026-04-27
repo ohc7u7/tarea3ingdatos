@@ -1,17 +1,24 @@
-import requests
+import argparse
 import json
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timezone
 
-def discover_repos(org_name, max_repos=50, days_active=30):
-    url = f"https://api.github.com/orgs/{org_name}/repos"
-    
-    # Agregar token si existe en variables de entorno para tener mayor límite de peticiones
-    headers = {"Accept": "application/vnd.github.v3+json"}
+import requests
+
+
+def _build_headers():
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+    }
     github_token = os.environ.get("GITHUB_TOKEN")
     if github_token:
-        headers["Authorization"] = f"token {github_token}"
-        
+        headers["Authorization"] = f"Bearer {github_token}"
+    return headers
+
+
+def _fetch_repos_page(org_name, page, headers):
+    url = f"https://api.github.com/orgs/{org_name}/repos"
     params = {
         "type": "public",
         "sort": "stars",
@@ -40,6 +47,8 @@ def discover_repos(org_name, max_repos=50, days_active=30):
     # Asegurarnos de que el directorio data exista en la raíz del proyecto
     root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
     data_dir = os.path.join(root_dir, "data")
+    datasets_dir = os.path.join(data_dir, "datasets")
+
     os.makedirs(data_dir, exist_ok=True)
     
     output_path = os.path.join(data_dir, "repos.json")
@@ -49,11 +58,35 @@ def discover_repos(org_name, max_repos=50, days_active=30):
     print(f"Se encontraron y guardaron los {len(top_repos)} repositorios más populares en data/repos.json")
 
 if __name__ == "__main__":
-    import argparse
-    parser = argparse.ArgumentParser(description="Descubre repositorios activos de una organización en GitHub.")
-    parser.add_argument("organizacion", help="Nombre de la organización de GitHub (ej. Netflix)")
-    parser.add_argument("--limit", type=int, default=50, help="Límite de repositorios a buscar")
-    parser.add_argument("--days-active", type=int, default=30, help="Número de días para considerar un repositorio como activo")
+    parser = argparse.ArgumentParser(
+        description="Descubre repositorios de una organización en GitHub por popularidad."
+    )
+    parser.add_argument(
+        "organizacion", help="Nombre de la organización de GitHub (ej. FlowiseAI)"
+    )
+    parser.add_argument("--limit", type=int, default=5, help="Límite de repositorios")
+    parser.add_argument(
+        "--include-forks",
+        action="store_true",
+        help="Incluye repositorios que son forks",
+    )
+    parser.add_argument(
+        "--include-archived",
+        action="store_true",
+        help="Incluye repositorios archivados",
+    )
     args = parser.parse_args()
-    
-    discover_repos(args.organizacion, max_repos=args.limit, days_active=args.days_active)
+
+    repos = discover_repos(
+        args.organizacion,
+        max_repos=args.limit,
+        include_forks=args.include_forks,
+        include_archived=args.include_archived,
+    )
+    write_outputs(
+        args.organizacion,
+        args.limit,
+        repos,
+        include_forks=args.include_forks,
+        include_archived=args.include_archived,
+    )

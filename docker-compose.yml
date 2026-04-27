@@ -10,6 +10,5 @@ services:
       - GITHUB_TOKEN=${GITHUB_TOKEN}
       - ORG_NAME=${ORG_NAME:-FlowiseAI}
       - REPO_LIMIT=${REPO_LIMIT:-5}
-      - DAYS_ACTIVE=${DAYS_ACTIVE:-30}
       - SKIP_IF_RESULTS_EXIST=${SKIP_IF_RESULTS_EXIST:-1}
     command: /usr/local/bin/run_pipeline_and_jupyter.sh

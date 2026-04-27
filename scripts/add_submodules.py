@@ -23,8 +23,13 @@ def add_submodules():
         subprocess.run(["git", "init"], cwd=root_dir, check=True)
         
     for repo in repos:
-        nombre = repo["nombre"]
-        url = repo["url"]
+        nombre = repo.get("nombre") or repo.get("name")
+        url = repo.get("url") or repo.get("clone_url")
+
+        if not nombre or not url:
+            print(f"Saltando registro inválido en repos.json: {repo}")
+            continue
+
         target_path = f"data/repos/{nombre}"
         
         print(f"Añadiendo submódulo para {nombre} desde {url}...")

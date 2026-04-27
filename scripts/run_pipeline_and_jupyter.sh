@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ORG_NAME="${ORG_NAME:-Netflix}"
+ORG_NAME="${ORG_NAME:-FlowiseAI}"
 REPO_LIMIT="${REPO_LIMIT:-5}"
-DAYS_ACTIVE="${DAYS_ACTIVE:-30}"
 SKIP_IF_RESULTS_EXIST="${SKIP_IF_RESULTS_EXIST:-1}"
 
 RESULTS_DIR="/app/data/results"
 MARKER_FILE="${RESULTS_DIR}/.pipeline_completed"
 
-echo "[entrypoint] Starting pipeline for org='${ORG_NAME}', limit='${REPO_LIMIT}', days_active='${DAYS_ACTIVE}'"
+echo "[entrypoint] Starting pipeline for org='${ORG_NAME}', limit='${REPO_LIMIT}'"
 
 mkdir -p /app/data
 
@@ -17,7 +16,7 @@ if [[ "${SKIP_IF_RESULTS_EXIST}" == "1" && -f "${MARKER_FILE}" ]]; then
   echo "[entrypoint] Existing pipeline marker found. Skipping pipeline execution."
 else
   echo "[entrypoint] Discovering repositories..."
-  python /app/scripts/discover_repos.py "${ORG_NAME}" --limit "${REPO_LIMIT}" --days-active "${DAYS_ACTIVE}"
+  python /app/scripts/discover_repos.py "${ORG_NAME}" --limit "${REPO_LIMIT}"
 
   echo "[entrypoint] Adding/updating submodules..."
   python /app/scripts/add_submodules.py
