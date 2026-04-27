@@ -31,5 +31,9 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# 6. Copiar entrypoint del flujo end-to-end
+COPY scripts/run_pipeline_and_jupyter.sh /usr/local/bin/run_pipeline_and_jupyter.sh
+RUN chmod +x /usr/local/bin/run_pipeline_and_jupyter.sh
+
 # Iniciar una terminal por defecto
 CMD ["/bin/bash"]

@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   security-app:
     build: .
@@ -9,8 +7,9 @@ services:
     ports:
       - "8888:8888"
     environment:
-      # Token de GitHub para evitar el rate-limit de la API (REEMPLAZAR ESTE VALOR ANTES DE CORRER)
-      - GITHUB_TOKEN=tu_github_token_aqui_para_evitar_rate_limit
-    # Por defecto, levantará Jupyter Notebook para el análisis
-    # Pero puedes sobrescribirlo para ejecutar los scripts directamente
-    command: jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root nbs/analysis.ipynb
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - ORG_NAME=${ORG_NAME:-Netflix}
+      - REPO_LIMIT=${REPO_LIMIT:-5}
+      - DAYS_ACTIVE=${DAYS_ACTIVE:-30}
+      - SKIP_IF_RESULTS_EXIST=${SKIP_IF_RESULTS_EXIST:-1}
+    command: /usr/local/bin/run_pipeline_and_jupyter.sh
