@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  security-app:
+    build: .
+    container_name: security-dashboard
+    volumes:
+      - .:/app
+    ports:
+      - "8888:8888"
+    environment:
+      # Token de GitHub para evitar el rate-limit de la API (REEMPLAZAR ESTE VALOR ANTES DE CORRER)
+      - GITHUB_TOKEN=tu_github_token_aqui_para_evitar_rate_limit
+    # Por defecto, levantará Jupyter Notebook para el análisis
+    # Pero puedes sobrescribirlo para ejecutar los scripts directamente
+    command: jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root nbs/analysis.ipynb
