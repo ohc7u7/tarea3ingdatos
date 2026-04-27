@@ -7,7 +7,26 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 .env
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.log
+
+# Configuración local de editores / IDEs
+.vscode/
+.idea/
+
+# Artefactos de build / distribución
+dist/
+build/
+*.egg-info/
 
 # Archivos de SO
 .DS_Store
 Thumbs.db
+

@@ -8,8 +8,9 @@ def discover_repos(org_name, max_repos=50, days_active=30):
     
     # Agregar token si existe en variables de entorno para tener mayor límite de peticiones
     headers = {"Accept": "application/vnd.github.v3+json"}
-    if "GITHUB_TOKEN" in os.environ:
-        headers["Authorization"] = f"token {os.environ['GITHUB_TOKEN']}"
+    github_token = os.environ.get("GITHUB_TOKEN")
+    if github_token:
+        headers["Authorization"] = f"token {github_token}"
         
     params = {
         "type": "public",
@@ -54,6 +55,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Descubre repositorios activos de una organización en GitHub.")
     parser.add_argument("organizacion", help="Nombre de la organización de GitHub (ej. Netflix)")
     parser.add_argument("--limit", type=int, default=50, help="Límite de repositorios a buscar")
+    parser.add_argument("--days-active", type=int, default=30, help="Número de días para considerar un repositorio como activo")
     args = parser.parse_args()
     
-    discover_repos(args.organizacion, max_repos=args.limit)
+    discover_repos(args.organizacion, max_repos=args.limit, days_active=args.days_active)
