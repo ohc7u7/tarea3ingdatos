@@ -1,0 +1,6 @@
+[submodule "data/repos/dgs-framework"]
+	path = data/repos/dgs-framework
+	url = https://github.com/Netflix/dgs-framework.git
+[submodule "data/repos/metaflow"]
+	path = data/repos/metaflow
+	url = https://github.com/Netflix/metaflow.git

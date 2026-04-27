@@ -1,0 +1,13 @@
+# Datos generados y submodulos clonados locales (NO MANTENER EN EL REPO PUBLICO)
+data/
+.gitmodules
+
+# Cachés y temporales
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.env
+
+# Archivos de SO
+.DS_Store
+Thumbs.db
