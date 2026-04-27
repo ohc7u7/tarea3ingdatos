@@ -19,3 +19,18 @@
 [submodule "data/repos/global-lock-bench"]
 	path = data/repos/global-lock-bench
 	url = https://github.com/Netflix/global-lock-bench.git
+[submodule "data/repos/FlowiseTestBullMQ"]
+	path = data/repos/FlowiseTestBullMQ
+	url = https://github.com/FlowiseAI/FlowiseTestBullMQ.git
+[submodule "data/repos/openai-realtime-console"]
+	path = data/repos/openai-realtime-console
+	url = https://github.com/FlowiseAI/openai-realtime-console.git
+[submodule "data/repos/openai-realtime-api-beta"]
+	path = data/repos/openai-realtime-api-beta
+	url = https://github.com/FlowiseAI/openai-realtime-api-beta.git
+[submodule "data/repos/nodevm"]
+	path = data/repos/nodevm
+	url = https://github.com/FlowiseAI/nodevm.git
+[submodule "data/repos/FlowisePy"]
+	path = data/repos/FlowisePy
+	url = https://github.com/FlowiseAI/FlowisePy.git
