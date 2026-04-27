@@ -14,30 +14,28 @@ def discover_repos(org_name, max_repos=50, days_active=30):
         
     params = {
         "type": "public",
-        "sort": "updated",
+        "sort": "stars",
         "direction": "desc",
         "per_page": 100
     }
     
-    print(f"Buscando repositorios para la organización: {org_name}")
+    print(f"Buscando repositorios para la organización: {org_name} (Top {max_repos} por popularidad)")
     response = requests.get(url, headers=headers, params=params)
     response.raise_for_status()
     
     repos = response.json()
     
-    active_repos = []
-    cutoff_date = datetime.utcnow() - timedelta(days=days_active)
+    top_repos = []
     
     for repo in repos:
-        pushed_at = datetime.strptime(repo["pushed_at"], "%Y-%m-%dT%H:%M:%SZ")
-        if pushed_at >= cutoff_date:
-            active_repos.append({
-                "nombre": repo["name"],
-                "url": repo["clone_url"],
-                "ultima_actualizacion": repo["pushed_at"]
-            })
-            if len(active_repos) >= max_repos:
-                break
+        top_repos.append({
+            "nombre": repo["name"],
+            "url": repo["clone_url"],
+            "ultima_actualizacion": repo["pushed_at"],
+            "estrellas": repo["stargazers_count"]
+        })
+        if len(top_repos) >= max_repos:
+            break
                 
     # Asegurarnos de que el directorio data exista en la raíz del proyecto
     root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -46,9 +44,9 @@ def discover_repos(org_name, max_repos=50, days_active=30):
     
     output_path = os.path.join(data_dir, "repos.json")
     with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(active_repos, f, indent=4, ensure_ascii=False)
+        json.dump(top_repos, f, indent=4, ensure_ascii=False)
         
-    print(f"Se encontraron y guardaron {len(active_repos)} repositorios activos en data/repos.json")
+    print(f"Se encontraron y guardaron los {len(top_repos)} repositorios más populares en data/repos.json")
 
 if __name__ == "__main__":
     import argparse
