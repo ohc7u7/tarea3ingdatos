@@ -1,36 +1,15 @@
-[submodule "data/repos/dgs-framework"]
-	path = data/repos/dgs-framework
-	url = https://github.com/Netflix/dgs-framework.git
-[submodule "data/repos/metaflow"]
-	path = data/repos/metaflow
-	url = https://github.com/Netflix/metaflow.git
-[submodule "data/repos/void-model"]
-	path = data/repos/void-model
-	url = https://github.com/Netflix/void-model.git
-[submodule "data/repos/ostris-ai-toolkit-fork"]
-	path = data/repos/ostris-ai-toolkit-fork
-	url = https://github.com/Netflix/ostris-ai-toolkit-fork.git
-[submodule "data/repos/x-test-cli"]
-	path = data/repos/x-test-cli
-	url = https://github.com/Netflix/x-test-cli.git
-[submodule "data/repos/ttal-dapt-conv"]
-	path = data/repos/ttal-dapt-conv
-	url = https://github.com/Netflix/ttal-dapt-conv.git
-[submodule "data/repos/global-lock-bench"]
-	path = data/repos/global-lock-bench
-	url = https://github.com/Netflix/global-lock-bench.git
-[submodule "data/repos/FlowiseTestBullMQ"]
-	path = data/repos/FlowiseTestBullMQ
-	url = https://github.com/FlowiseAI/FlowiseTestBullMQ.git
-[submodule "data/repos/openai-realtime-console"]
-	path = data/repos/openai-realtime-console
-	url = https://github.com/FlowiseAI/openai-realtime-console.git
-[submodule "data/repos/openai-realtime-api-beta"]
-	path = data/repos/openai-realtime-api-beta
-	url = https://github.com/FlowiseAI/openai-realtime-api-beta.git
-[submodule "data/repos/nodevm"]
-	path = data/repos/nodevm
-	url = https://github.com/FlowiseAI/nodevm.git
 [submodule "data/repos/FlowisePy"]
 	path = data/repos/FlowisePy
 	url = https://github.com/FlowiseAI/FlowisePy.git
+[submodule "data/repos/Flowise"]
+	path = data/repos/Flowise
+	url = https://github.com/FlowiseAI/Flowise.git
+[submodule "data/repos/FlowiseChatEmbed"]
+	path = data/repos/FlowiseChatEmbed
+	url = https://github.com/FlowiseAI/FlowiseChatEmbed.git
+[submodule "data/repos/FlowiseDocs"]
+	path = data/repos/FlowiseDocs
+	url = https://github.com/FlowiseAI/FlowiseDocs.git
+[submodule "data/repos/FlowiseEmbedReact"]
+	path = data/repos/FlowiseEmbedReact
+	url = https://github.com/FlowiseAI/FlowiseEmbedReact.git
